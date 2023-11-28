@@ -31,7 +31,11 @@ const bot = new TelegramBot(token, { polling: true });
     }
 
     setTimeout(loop, 30000);
-})()
+})();
+
+bot.on('message', (msg) => {
+    bot.sendMessage(msg.chat.id, 'I\'m alive!');
+})
 
 function notify(chatId, price) {
     return bot.sendMessage(chatId, `Товар в наличии!\n${price}\n${productLink}`);
