@@ -70,10 +70,10 @@ function notify(chatId, product) {
 
   return bot.sendMessage(
     chatId,
-    `*${text}*\n\n${product.price}\n`,
+    `<b>${text}</b>\n\n${product.price}\n<a href="${product.link}">Ссылка</a>`,
     {
       disable_web_page_preview: true,
-      parse_mode: 'MarkdownV2'
+      parse_mode: 'HTML'
     }
   );
 }
