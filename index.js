@@ -32,10 +32,6 @@ bot.onText(/^\/check/, async (msg, match) => {
     bot.sendMessage(msg.chat.id, JSON.stringify(product));
 });
 
-bot.on('message', (msg) => {
-    bot.sendMessage(msg.chat.id, 'I\'m alive!');
-});
-
 async function getProduct(productLink) {
     const response = await fetch(productLink);
     const html = await response.text();
