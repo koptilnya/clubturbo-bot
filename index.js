@@ -1,5 +1,5 @@
 import TelegramBot from 'node-telegram-bot-api';
-import { parse } from 'node-html-parser';
+import {parse} from 'node-html-parser';
 
 const productLink = 'https://clubturbo.ru/catalog/podveska/rychagi_podveski/rychagi_na_zhiguli/rychagi_drift_komplekt/';
 const token = '6349791090:AAF_LLzZORPn6BGQneJXvLpzQmQYL7GePK4';
@@ -68,7 +68,12 @@ async function getProduct(productLink) {
 function notify(chatId, product) {
   const text = product.available ? 'Товар в наличии!' : 'Товара нет в наличии!';
 
-  return bot.sendMessage(chatId, `*${text}*\n_${product.price}_\n[Ссылка](${product.link})`, { parse_mode: 'MarkdownV2' });
+  return bot.sendMessage(
+    chatId,
+    `*${text}*\n\n${product.price}\n[Ссылка](${product.link})`,
+    {
+      disable_web_page_preview: true,
+      parse_mode: 'MarkdownV2'
+    }
+  );
 }
-
-console.log('STARTED')
