@@ -70,7 +70,7 @@ function notify(chatId, product) {
 
   return bot.sendMessage(
     chatId,
-    `*${text}*\n\n${product.price}\n[Ссылка](${product.link})`,
+    `*${text}*\n\n${product.price}`,
     {
       disable_web_page_preview: true,
       parse_mode: 'MarkdownV2'
