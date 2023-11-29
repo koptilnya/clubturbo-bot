@@ -11,25 +11,25 @@ const subscribers = [
 const bot = new TelegramBot(token, { polling: true });
 
 (async function loop() {
-    const { price, available } = await getProduct(productLink)
+    const product = await getProduct(productLink)
 
-    if (available) {
+    if (product.available) {
         for (const chatId of subscribers) {
-            notify(chatId, price);
+            notify(chatId, product);
         }
     }
 
     setTimeout(loop, 30000);
 })();
 
-bot.onText(/^\/me/, (msg, match) => {
+bot.onText(/^\/me/, (msg) => {
     bot.sendMessage(msg.chat.id, `Chat ID: ${msg.chat.id}`);
 });
 
-bot.onText(/^\/check/, async (msg, match) => {
+bot.onText(/^\/check/, async (msg) => {
     const product = await getProduct(productLink);
 
-    bot.sendMessage(msg.chat.id, JSON.stringify(product));
+    notify(msg.chat.id, product);
 });
 
 async function getProduct(productLink) {
@@ -53,6 +53,8 @@ async function getProduct(productLink) {
     }
 }
 
-function notify(chatId, price) {
-    return bot.sendMessage(chatId, `Товар в наличии!\n${price}\n${productLink}`);
+function notify(chatId, product) {
+    const text = product.available ? 'Товар в наличии!' : 'Товара нет в наличии!';
+
+    return bot.sendMessage(chatId, `${text}\n${product.price}\n${product.link}`);
 }
