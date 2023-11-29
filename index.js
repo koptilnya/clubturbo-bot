@@ -66,12 +66,11 @@ async function getProduct(productLink) {
 }
 
 function notify(chatId, product) {
-  const text = product.available ? 'Товар в наличии!' : 'Товара нет в наличии!';
+  const text = product.available ? 'Товар в наличии\!' : 'Товара нет в наличии!';
 
   return bot.sendMessage(
     chatId,
-    // `*${text}*\n\n${product.price}\n[Ссылка](${product.link})`,
-    `*${text}*`,
+    `*${text}*\n\n${product.price}\n[Ссылка](${product.link})`,
     {
       disable_web_page_preview: true,
       parse_mode: 'MarkdownV2'
