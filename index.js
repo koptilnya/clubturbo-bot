@@ -1,5 +1,5 @@
 import TelegramBot from 'node-telegram-bot-api';
-import {parse} from 'node-html-parser';
+import { parse } from 'node-html-parser';
 
 const productLink = 'https://clubturbo.ru/catalog/podveska/rychagi_podveski/rychagi_na_zhiguli/rychagi_drift_komplekt/';
 const token = '6349791090:AAF_LLzZORPn6BGQneJXvLpzQmQYL7GePK4';
@@ -20,7 +20,7 @@ bot.setMyCommands([
     command: "check",
     description: "Проверить наличие ебаных рычагов для ебаной Жигули"
   },
-])
+]);
 
 (async function loop() {
   const product = await getProduct(productLink)
@@ -34,14 +34,14 @@ bot.setMyCommands([
   setTimeout(loop, 30000);
 })();
 
-bot.onText(/^\/me/, (msg) => {
-  bot.sendMessage(msg.chat.id, `Chat ID: ${msg.chat.id}`);
+bot.onText(/^\/me/, async (msg) => {
+  await bot.sendMessage(msg.chat.id, `Chat ID: ${msg.chat.id}`);
 });
 
 bot.onText(/^\/check/, async (msg) => {
   const product = await getProduct(productLink);
 
-  notify(msg.chat.id, product);
+  await notify(msg.chat.id, product);
 });
 
 async function getProduct(productLink) {
@@ -68,5 +68,5 @@ async function getProduct(productLink) {
 function notify(chatId, product) {
   const text = product.available ? 'Товар в наличии!' : 'Товара нет в наличии!';
 
-  return bot.sendMessage(chatId, `${text}\n${product.price}\n${product.link}`);
+  return bot.sendMessage(chatId, `*${text}*_\n${product.price}_\n[Ссылка](${product.link})`, { parse_mode: 'MarkdownV2' });
 }
