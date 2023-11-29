@@ -5,7 +5,8 @@ const productLink = 'https://clubturbo.ru/catalog/podveska/rychagi_podveski/rych
 const token = '6349791090:AAF_LLzZORPn6BGQneJXvLpzQmQYL7GePK4';
 const subscribers = [
     759406684,
-    302273127
+    302273127,
+    1696293734
 ];
 
 const bot = new TelegramBot(token, { polling: true });
