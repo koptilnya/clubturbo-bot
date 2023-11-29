@@ -9,7 +9,7 @@ const subscribers = [
   1696293734
 ];
 
-const bot = new TelegramBot(token, {polling: true});
+const bot = new TelegramBot(token, { polling: true });
 
 bot.setMyCommands([
   {
